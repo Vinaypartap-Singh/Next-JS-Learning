@@ -1,7 +1,16 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
 export default function BlogPage() {
+  const [posts, setPosts] = useState([]);
+  useEffect(async () => {
+    const api = await fetch("https://dummyjson.com/posts");
+    const data = await api.json();
+    setPosts(data.posts);
+  }, []);
   const blogsData = [
     {
       userId: 1,
@@ -31,24 +40,18 @@ export default function BlogPage() {
   ];
   return (
     <div className="min-h-screen flex flex-col justify-center items-center w-full">
-      <div className="max-w-6xl card-wrapper flex items-start sm:flex-wrap sm:justify-center md:space-x-6 flex-wrap md:flex-nowrap">
-        {blogsData.map(({ id, title, body, image }) => {
+      <div className="max-w-6xl card-wrapper flex items-start sm:flex-wrap sm:justify-center space-x-6 flex-wrap md:space-x-0">
+        {posts?.map(({ id, title, body }) => {
           return (
             <div
-              className="card py-4 px-8 border border-blue-400 w-2/6"
+              className="card py-4 px-8 border border-blue-400 w-2/6 my-4"
               key={id}
             >
-              <Image
-                src={image}
-                width={400}
-                height={300}
-                className="object-cover h-[250px]"
-              />
               <h1 className="font-bold mt-8">{title.substring(0, 30)}....</h1>
-              <p>{body.substring(0, 170)}....</p>
-              <button className="mt-8 bg-white text-black px-6 py-2">
-                Read All
-              </button>
+              <p className="my-8">{body.substring(0, 100)}....</p>
+              <Link href={"/"} className="mt-8 underline text-blue-400">
+                Read
+              </Link>
             </div>
           );
         })}
