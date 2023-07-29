@@ -9,7 +9,7 @@ export async function GET() {
 export async function POST(req, res) {
   const payload = await req.json();
   console.log(payload.name);
-  if (!payload.name || !payload.age || !payload.email) {
+  if (!payload.name || !payload.email || !payload.password) {
     return NextResponse.json({ result: "Missing Fields" });
   }
   return NextResponse.json({ result: "success" });

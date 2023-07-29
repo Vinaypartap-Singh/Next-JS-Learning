@@ -11,3 +11,25 @@ export async function GET(req, params) {
       : { result: filteredData, status: "ok" }
   );
 }
+
+export async function PUT(req, res) {
+  const payload = await req.json();
+  payload.id == res.params.id;
+  console.log(payload);
+
+  if (!payload.id || !payload.name || !payload.email || !payload.aim) {
+    return NextResponse.json({ result: "Missing Data", sattus: 400 });
+  }
+
+  return NextResponse.json({ result: "Success" });
+}
+
+export async function DELETE(req, content) {
+  const id = content.params.id;
+
+  if (id) {
+    return NextResponse.json({ result: "User Deleted" });
+  } else {
+    return NextResponse.json({ result: "User Not Found" });
+  }
+}
