@@ -3,7 +3,13 @@ const nextConfig = {
   images: {
     domains: ["images.unsplash.com"],
   },
-  output: "export",
+  redirects: async () => [
+    {
+      source: "/user",
+      destination: "/",
+      permanent: false,
+    },
+  ],
 };
 
 module.exports = nextConfig;
