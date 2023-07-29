@@ -2,14 +2,15 @@ import React from "react";
 
 async function fetcApi(id) {
   console.log(id);
-  const apiFetch = fetch(`https://dummyjson.com/posts/1`);
+  const apiFetch = fetch(`https://dummyjson.com/posts/${id}`);
   const data = (await apiFetch).json();
   return data;
 }
 
-export default async function BlogPost() {
+export default async function BlogPost(params) {
+  const id = params.params.id;
   try {
-    const blogsData = await fetcApi();
+    const blogsData = await fetcApi(id);
     console.log(blogsData);
     return (
       <div className="min-h-screen w-full flex flex-col justify-center items-center">
